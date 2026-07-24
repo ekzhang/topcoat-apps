@@ -23,7 +23,9 @@ image = (
         "rust:1.97-slim-bookworm",
         add_python="3.13",
     )
-    .apt_install("ca-certificates")
+    # fftw-src compiles FFTW for the container's native platform during this
+    # image build, so the slim Rust base needs a C toolchain and make.
+    .apt_install("build-essential", "ca-certificates")
     .run_commands("cargo install topcoat-cli --version 0.4.0 --locked")
     .workdir(REMOTE_APP_DIR)
     # Keep dependency downloads cached when only application source changes.
@@ -45,6 +47,11 @@ image = (
     .add_local_file(
         PROJECT_ROOT / "styles.css",
         f"{REMOTE_APP_DIR}/styles.css",
+        copy=True,
+    )
+    .add_local_dir(
+        PROJECT_ROOT / "assets",
+        remote_path=f"{REMOTE_APP_DIR}/assets",
         copy=True,
     )
     .add_local_dir(

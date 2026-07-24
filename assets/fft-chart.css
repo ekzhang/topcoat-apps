@@ -1,0 +1,91 @@
+.metric-runtime-label,
+.metric-runtime-chart {
+  display: none;
+}
+
+[data-show-runtime] .metric-throughput-label,
+[data-show-runtime] .metric-throughput-chart {
+  display: none;
+}
+
+[data-show-runtime] .metric-runtime-label {
+  display: inline;
+}
+
+[data-show-runtime] .metric-runtime-chart {
+  display: block;
+}
+
+[data-chart-point] {
+  cursor: crosshair;
+}
+
+[data-fft-chart][data-highlighted] [data-chart-point] {
+  opacity: 0.18;
+}
+
+[data-fft-chart][data-highlighted] [data-chart-point].is-highlighted {
+  opacity: 1;
+  r: 5px;
+  stroke-width: 2.5px;
+}
+
+[data-chart-guide] {
+  opacity: 0;
+}
+
+[data-chart-guide].is-visible {
+  opacity: 0.55;
+}
+
+.fft-chart-tooltip {
+  position: fixed;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: max-content minmax(max-content, 1fr);
+  gap: 3px 20px;
+  min-width: 200px;
+  padding: 8px 10px;
+  border: 1px solid #e7e5e4;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 2px 8px rgb(28 25 23 / 10%);
+  color: #44403c;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.35;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.fft-chart-tooltip-label {
+  color: #78716c;
+}
+
+.fft-chart-tooltip-value {
+  color: #292524;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.fft-chart-tooltip-value sup {
+  position: relative;
+  top: -0.4em;
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.fft-chart-tooltip-divider {
+  grid-column: 1 / -1;
+  height: 1px;
+  margin: 4px 0 3px;
+  background: #e7e5e4;
+}
+
+.fft-chart-tooltip[hidden] {
+  display: none;
+}
+
+.benchmark-row.is-highlighted {
+  background: #f5f5f4;
+}
