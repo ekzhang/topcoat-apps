@@ -23,41 +23,14 @@ image = (
         "rust:1.97-slim-bookworm",
         add_python="3.13",
     )
-    # fftw-src compiles FFTW for the container's native platform during this
-    # image build, so the slim Rust base needs a C toolchain and make.
-    .apt_install("build-essential", "ca-certificates")
+    .apt_install("build-essential", "ca-certificates", "libfftw3-dev")
     .run_commands("cargo install topcoat-cli --version 0.4.0 --locked")
     .workdir(REMOTE_APP_DIR)
-    # Keep dependency downloads cached when only application source changes.
-    .add_local_file(
-        PROJECT_ROOT / "Cargo.toml",
-        f"{REMOTE_APP_DIR}/Cargo.toml",
-        copy=True,
-    )
-    .add_local_file(
-        PROJECT_ROOT / "Cargo.lock",
-        f"{REMOTE_APP_DIR}/Cargo.lock",
-        copy=True,
-    )
-    .add_local_file(
-        PROJECT_ROOT / "build.rs",
-        f"{REMOTE_APP_DIR}/build.rs",
-        copy=True,
-    )
-    .add_local_file(
-        PROJECT_ROOT / "styles.css",
-        f"{REMOTE_APP_DIR}/styles.css",
-        copy=True,
-    )
     .add_local_dir(
-        PROJECT_ROOT / "assets",
-        remote_path=f"{REMOTE_APP_DIR}/assets",
+        PROJECT_ROOT,
+        remote_path=REMOTE_APP_DIR,
         copy=True,
-    )
-    .add_local_dir(
-        PROJECT_ROOT / "src",
-        remote_path=f"{REMOTE_APP_DIR}/src",
-        copy=True,
+        ignore=["/target", "**/__pycache__/", "/modal_deploy.py"],
     )
     .run_commands(
         "cargo build --release --locked",
@@ -66,7 +39,7 @@ image = (
 )
 
 
-@app.function(image=image, scaledown_window=1800)
+@app.function(cpu=1, image=image, scaledown_window=3600)
 @modal.concurrent(max_inputs=128)
 @modal.web_server(
     SERVER_PORT,
