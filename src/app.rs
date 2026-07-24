@@ -54,9 +54,20 @@ async fn home() -> Result {
         )
         <body>
             <main class="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-6 py-16">
-                <h1 class="mt-3 text-3xl font-semibold tracking-[-0.04em] text-stone-950">
+                <h1 class="text-3xl font-semibold tracking-[-0.04em] text-stone-950">
                     "Small server-rendered experiments."
                 </h1>
+                <p class="mt-4">
+                    "These are small apps built with Topcoat, a Rust framework for server-rendered web applications "
+                    "with a unique "
+                    <a target="_blank" class="underline" href="https://tokio.rs/blog/2026-07-22-announcing-topcoat">"interactivity model"</a>
+                    "."
+                </p>
+                <p class="mt-4">
+                    "Source code is available at "
+                    <a target="_blank" class="underline" href="https://github.com/ekzhang/topcoat-apps">"github.com/ekzhang/topcoat-apps"</a>
+                    "."
+                </p>
                 <a
                     href="/fft"
                     class="mt-10 flex items-center justify-between rounded-xl border border-stone-200 bg-white px-5 py-4 text-sm font-semibold text-stone-900 shadow-sm transition hover:border-stone-300 hover:shadow"
