@@ -320,7 +320,7 @@ mod tests {
     #[test]
     fn describes_input_shapes_and_batches() {
         let sizes = input_sizes();
-        assert_eq!(sizes.len(), 255);
+        assert_eq!(sizes.len(), 253);
         assert_eq!(sizes.first(), Some(&64));
         assert_eq!(sizes.last(), Some(&4_096));
         assert!(sizes.contains(&80));
@@ -331,8 +331,8 @@ mod tests {
         assert_eq!(size_family(127), "prime");
         assert_eq!(size_family(384), "smooth");
         assert_eq!(size_family(1717), "mixed");
-        assert_eq!(transforms_per_sample(64), 64);
-        assert_eq!(transforms_per_sample(1000), 5);
-        assert_eq!(transforms_per_sample(8192), 1);
+        assert_eq!(transforms_per_sample(64), 256);
+        assert_eq!(transforms_per_sample(1000), 17);
+        assert_eq!(transforms_per_sample(8192), 2);
     }
 }

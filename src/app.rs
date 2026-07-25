@@ -1,4 +1,5 @@
 mod fft;
+mod map;
 
 use topcoat::{
     Result,
@@ -7,6 +8,25 @@ use topcoat::{
     router::{Router, RouterBuilderDiscoverExt, Slot, layout, page},
     view::{View, component, view},
 };
+
+struct AppEntry {
+    href: &'static str,
+    title: &'static str,
+    description: &'static str,
+}
+
+const APP_ENTRIES: [AppEntry; 2] = [
+    AppEntry {
+        href: "/map",
+        title: "Static map generator",
+        description: "A customizable static map rendered by Rust",
+    },
+    AppEntry {
+        href: "/fft",
+        title: "Rust FFT benchmark",
+        description: "RustFFT vs FFTW on different array lengths",
+    },
+];
 
 pub fn router() -> Router {
     topcoat::router::module_router!()
@@ -68,18 +88,22 @@ async fn home() -> Result {
                     <a target="_blank" class="underline" href="https://github.com/ekzhang/topcoat-apps">"github.com/ekzhang/topcoat-apps"</a>
                     "."
                 </p>
-                <a
-                    href="/fft"
-                    class="mt-10 flex items-center justify-between rounded-xl border border-stone-200 bg-white px-5 py-4 text-sm font-semibold text-stone-900 shadow-sm transition hover:border-stone-300 hover:shadow"
-                >
-                    <span>
-                        <span class="block">"Rust FFT benchmark"</span>
-                        <span class="mt-1 block text-xs font-normal text-stone-500">
-                            "RustFFT vs FFTW on different array lengths"
-                        </span>
-                    </span>
-                    <span class="text-stone-400" aria-hidden="true">"→"</span>
-                </a>
+                <div class="mt-10 space-y-3">
+                    for app in &APP_ENTRIES {
+                        <a
+                            href=(app.href)
+                            class="flex items-center justify-between rounded-xl border border-stone-200 bg-white px-5 py-4 text-sm font-semibold text-stone-900 shadow-sm transition hover:border-stone-300 hover:shadow"
+                        >
+                            <span>
+                                <span class="block">(app.title)</span>
+                                <span class="mt-1 block text-xs font-normal text-stone-500">
+                                    (app.description)
+                                </span>
+                            </span>
+                            <span class="text-stone-400" aria-hidden="true">"→"</span>
+                        </a>
+                    }
+                </div>
             </main>
         </body>
     }

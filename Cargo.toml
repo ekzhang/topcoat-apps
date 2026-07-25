@@ -4,8 +4,21 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+base64 = "0.22.1"
+bytes = "1.12.1"
+fast-mvt = { version = "0.6.2", default-features = false, features = [
+    "reader",
+] }
 fftw = { version = "0.8.0", default-features = false, features = ["system"] }
+lru = "0.16.2"
+reqwest = { version = "0.13.4", default-features = false, features = [
+    "http2",
+    "json",
+    "rustls",
+] }
 rustfft = "6.4.1"
+serde_json = "1.0.142"
+skia-safe = "0.99.0"
 tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros"] }
 topcoat = { version = "0.4.0", features = [
     "font-fontsource",

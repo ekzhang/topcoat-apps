@@ -47,16 +47,14 @@ function factorizationCell(factorization) {
 function showTooltip(chart, n, clientX, clientY) {
   const element = chartTooltip();
   if (tooltipChart !== chart || tooltipN !== n) {
-    const points = chart.querySelectorAll(
-      `[data-chart-point][data-n="${n}"]`,
-    );
+    const points = chart.querySelectorAll(`[data-chart-point][data-n="${n}"]`);
     const fragment = new DocumentFragment();
 
     fragment.append(
       tooltipCell("fft-chart-tooltip-label", "N"),
       tooltipCell("fft-chart-tooltip-value", n),
       tooltipCell("fft-chart-tooltip-label", "Factors"),
-      factorizationCell(points[0]?.dataset.factors ?? "—"),
+      factorizationCell(points[0]?.dataset.factors ?? "—")
     );
 
     const divider = document.createElement("span");
@@ -66,7 +64,7 @@ function showTooltip(chart, n, clientX, clientY) {
     for (const point of points) {
       fragment.append(
         tooltipCell("fft-chart-tooltip-label", point.dataset.series),
-        tooltipCell("fft-chart-tooltip-value", point.dataset.value),
+        tooltipCell("fft-chart-tooltip-value", point.dataset.value)
       );
     }
 
@@ -87,7 +85,7 @@ function showTooltip(chart, n, clientX, clientY) {
   }
   top = Math.max(
     padding,
-    Math.min(top, window.innerHeight - bounds.height - padding),
+    Math.min(top, window.innerHeight - bounds.height - padding)
   );
 
   element.style.left = `${left}px`;
@@ -114,7 +112,7 @@ function chartPoints(chart) {
 function clearChart(chart) {
   chart.removeAttribute("data-highlighted");
   for (const point of chart.querySelectorAll(
-    "[data-chart-point].is-highlighted",
+    "[data-chart-point].is-highlighted"
   )) {
     point.classList.remove("is-highlighted");
   }
@@ -132,7 +130,8 @@ function clearChart(chart) {
 function highlightNearest(chart, clientX, clientY) {
   const bounds = chart.getBoundingClientRect();
   const viewBox = chart.viewBox.baseVal;
-  const x = viewBox.x + ((clientX - bounds.left) / bounds.width) * viewBox.width;
+  const x =
+    viewBox.x + ((clientX - bounds.left) / bounds.width) * viewBox.width;
   const points = chartPoints(chart);
 
   let nearest = points[0];
@@ -149,7 +148,7 @@ function highlightNearest(chart, clientX, clientY) {
   chart.dataset.highlighted = nearest.n;
 
   for (const point of chart.querySelectorAll(
-    `[data-chart-point][data-n="${nearest.n}"]`,
+    `[data-chart-point][data-n="${nearest.n}"]`
   )) {
     point.classList.add("is-highlighted");
   }
@@ -163,9 +162,7 @@ function highlightNearest(chart, clientX, clientY) {
   showTooltip(chart, nearest.n, clientX, clientY);
 
   const root = chart.closest("main") ?? document;
-  const row = root.querySelector(
-    `[data-benchmark-row][data-n="${nearest.n}"]`,
-  );
+  const row = root.querySelector(`[data-benchmark-row][data-n="${nearest.n}"]`);
   if (!row) return;
 
   row.classList.add("is-highlighted");
@@ -184,7 +181,7 @@ document.addEventListener("pointermove", (event) => {
   }
 
   for (const activeChart of document.querySelectorAll(
-    "[data-fft-chart][data-highlighted]",
+    "[data-fft-chart][data-highlighted]"
   )) {
     clearChart(activeChart);
   }
@@ -202,11 +199,12 @@ document.addEventListener(
   (event) => {
     if (event.target.matches?.("[data-fft-chart]")) clearChart(event.target);
   },
-  true,
+  true
 );
 
 document.addEventListener("click", (event) => {
-  if (!event.target.closest?.('[role="group"][aria-label="Chart metric"]')) return;
+  if (!event.target.closest?.('[role="group"][aria-label="Chart metric"]'))
+    return;
   for (const chart of document.querySelectorAll("[data-fft-chart]")) {
     clearChart(chart);
   }

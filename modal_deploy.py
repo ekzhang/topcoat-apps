@@ -23,7 +23,18 @@ image = (
         "rust:1.97-slim-bookworm",
         add_python="3.13",
     )
-    .apt_install("build-essential", "ca-certificates", "libfftw3-dev")
+    .apt_install(
+        "build-essential",
+        "ca-certificates",
+        "clang",
+        "curl",
+        "fontconfig",
+        "fonts-inter",
+        "libfftw3-dev",
+        "libfontconfig1-dev",
+        "libfreetype6-dev",
+        "pkg-config",
+    )
     .run_commands("cargo install topcoat-cli --version 0.4.0 --locked")
     .workdir(REMOTE_APP_DIR)
     .add_local_dir(

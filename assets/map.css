@@ -1,0 +1,27 @@
+.remote-map {
+  cursor: grab;
+  touch-action: none;
+}
+
+.remote-map.is-dragging {
+  cursor: grabbing;
+}
+
+.remote-map [data-map-frame-image] {
+  transform-origin: center;
+  will-change: transform;
+}
+
+.remote-map.is-rendering [data-map-frame-image] {
+  filter: saturate(0.82) contrast(0.96);
+}
+
+.remote-map [data-map-loading][hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .remote-map [data-map-frame-image] {
+    will-change: auto;
+  }
+}
