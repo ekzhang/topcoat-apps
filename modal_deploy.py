@@ -43,10 +43,7 @@ image = (
         copy=True,
         ignore=["/target", "**/__pycache__/", "/modal_deploy.py"],
     )
-    .run_commands(
-        "cargo build --release --locked",
-        "topcoat asset bundle --release",
-    )
+    .run_commands("topcoat asset bundle --release")
 )
 
 
