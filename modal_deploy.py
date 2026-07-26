@@ -41,13 +41,13 @@ image = (
         PROJECT_ROOT,
         remote_path=REMOTE_APP_DIR,
         copy=True,
-        ignore=["/target", "**/__pycache__/", "/modal_deploy.py"],
+        ignore=["/target", "**/__pycache__/", "**/.git/", "/modal_deploy.py"],
     )
     .run_commands("topcoat asset bundle --release")
 )
 
 
-@app.function(cpu=1, image=image, scaledown_window=3600)
+@app.function(cpu=1, image=image, scaledown_window=3600, region="us")
 @modal.concurrent(max_inputs=128)
 @modal.web_server(
     SERVER_PORT,
